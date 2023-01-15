@@ -18,16 +18,40 @@ import java.util.Random;
 //@SpringBootTest
 public class AppTest {
 
+    private Integer id;
+    private String name;
+    private Integer age;
 
-    @Test
-    public void method() {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setNumber(213);
-        BigDecimal bigDecimal = new BigDecimal(shoppingCart.getNumber());
+    public Integer getId() {
+        return id;
     }
 
-    public String nullToString(String str) {
-        return str == null ? "" : str;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "AppTest{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

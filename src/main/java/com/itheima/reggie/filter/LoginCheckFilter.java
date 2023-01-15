@@ -102,8 +102,9 @@ public class LoginCheckFilter implements Filter {
     public boolean check(String[] urls, String requestURI) {
         for (String url : urls) {
             boolean match = PATH_MATCHER.match(url, requestURI);
-            if(match)
+            if(match) {
                 return true;
+            }
         }
         return false;
     }

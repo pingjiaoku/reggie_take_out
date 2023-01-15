@@ -71,10 +71,10 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     }
 
     @Override
-    public List<DishDto> listWithDishFlavor(Long categoryId, String name) {
+    public List<DishDto> listWithDishFlavor(Long categoryId, Integer status, String name) {
         LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(categoryId != null, Dish::getCategoryId, categoryId)
-                .eq(Dish::getStatus, 1)
+                .eq(Dish::getStatus, status)
                 .like(name != null, Dish::getName, name)
                 .orderByAsc(Dish::getSort)
                 .orderByDesc(Dish::getUpdateTime);
