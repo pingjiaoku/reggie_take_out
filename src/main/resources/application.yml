@@ -4,13 +4,45 @@ spring:
   application:
     #应用的名称，可选
     name: reggie_take_out
-  datasource:
-    druid:
-      db-type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
-      username: root
-      password: 123456
+
+  shardingsphere:
+    datasource:
+      names: master,slave
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.229.100:3306/reggie?characterEncoding=utf-8
+        username: root
+        password: 123456
+      slave:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.229.101:3306/reggie?characterEncoding=utf-8
+        username: root
+        password: 123456
+    masterslave:
+      # 读写分离配置
+      load-balance-algorithm-type: round_robin #查询策略-轮询，
+      # 最终数据源名称
+      name: dataSource
+      # 主库数据源名称
+      master-data-source-name: master
+      # 从库数据源名称列表，多个逗号分隔
+      slave-data-source-names: slave
+    props:
+      sql:
+        show: true # 开启sql显示，默认false
+
+  main:
+    # 允许bean被覆盖
+    allow-bean-definition-overriding: true
+#  datasource:
+#    druid:
+#      db-type: com.alibaba.druid.pool.DruidDataSource
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+#      username: root
+#      password: 123456
 # useSSL=true是进行安全验证，一般通过证书或者令牌什么的，useSSL=false就是通过账号密码进行连接，通常使用useSSL=false
 # zeroDateTimeBehavior，不加这个，timestamp为0时不能正确的处理，而是默认抛出一个异常。三个属性值如下
 #     exception：默认值，即抛出SQL state [S1009]. Cannot convert value…的异常；
