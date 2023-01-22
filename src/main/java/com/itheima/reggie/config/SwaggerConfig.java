@@ -22,7 +22,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 //是否开启 (true 开启  false隐藏。生产环境建议隐藏)
                 .select()
-                //扫描的路径包,设置basePackage会将包下的所有被@Api标记类的所有方法作为api
+                //扫描的路径包
                 .apis(RequestHandlerSelectors.basePackage("com.itheima.reggie.controller"))
                 //指定路径处理PathSelectors.any()代表所有的路径
                 .paths(PathSelectors.any())
